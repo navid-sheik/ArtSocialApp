@@ -11,6 +11,8 @@ import UIKit
 
 class LoginController :  UIViewController{
     
+    var loginViewModel  =  LoginViewModel()
+    
     
     //MARK - PROPRETIES
     private let imageViewLogo : UIImageView =  {
@@ -37,6 +39,9 @@ class LoginController :  UIViewController{
     private let loginButton : CustomButton = {
        let button =  CustomButton(placeHolder: "Log In")
         button.setHeight(height: 50)
+        button.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.5)
+        button.setTitleColor(UIColor(white: 1, alpha: 0.2), for: .normal)
+        button.isEnabled = false
         button.addTarget(self, action: #selector(logIn), for: .touchUpInside)
         return button
     }()
@@ -60,6 +65,7 @@ class LoginController :  UIViewController{
         view.backgroundColor = .black
         setNavigationBar()
         configureView()
+        addTxtFieldObservers()
     }
     //MARK - NAVIGATION CONTROLLER
     
@@ -75,25 +81,23 @@ class LoginController :  UIViewController{
     
     //MARK - FUNCTIONS
     private func configureView(){
-        
         let stackView  =  UIStackView(arrangedSubviews: [imageViewLogo, emailTxtField, passwordTxtField, loginButton, forgetButton])
         //stackView.alignment = .fill
         //stackView.backgroundColor = .black
         stackView.axis = .vertical
         stackView.spacing =  20
-//        
-//        view.addSubview(imageViewLogo)
-//        imageViewLogo.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 200, paddingLeft: 32, paddingRight: 32)
-//        imageViewLogo.setHeight(height: 60)
-
-        
         view.addSubview(stackView)
         stackView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 120, paddingLeft: 32, paddingRight: 32)
-        
         view.addSubview(signUpButton)
         signUpButton.anchor(leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingLeft: 32, paddingRight: 32, paddingBottom: 20)
      
     }
+    private func addTxtFieldObservers (){
+        emailTxtField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+        passwordTxtField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+    }
+        
+    
     
     //MARK - ACTIONS
     
@@ -104,6 +108,18 @@ class LoginController :  UIViewController{
     @objc func handleGoSignUp(){
         let controller  =  RegisterController()
         navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @objc func textDidChange(_ sender : UITextField){
+        if sender == emailTxtField{
+            loginViewModel.email =  sender.text
+        }else{
+            loginViewModel.password = sender.text
+        }
+        
+        loginButton.backgroundColor =  loginViewModel.backgroundBtnColor
+        loginButton.setTitleColor(loginViewModel.textBtnColor, for: .normal)
+        loginButton.isEnabled =  loginViewModel.formIsValid
     }
     
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,12 +17,20 @@
 		6D37FC2F26F7847500D02792 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37FC2E26F7847500D02792 /* CustomTextField.swift */; };
 		6D37FC3426F78BEE00D02792 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D37FC3326F78BEE00D02792 /* CustomButton.swift */; };
 		6D3DE37426F5613C00FDD83D /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3DE37326F5613C00FDD83D /* Extension.swift */; };
+		6D50DB8626FBD83E00B71BEE /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D50DB8526FBD83E00B71BEE /* AuthService.swift */; };
+		6D50DB8C26FBD90600B71BEE /* Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D50DB8B26FBD90600B71BEE /* Uploader.swift */; };
+		6D50DB9126FBD97300B71BEE /* Constants .swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D50DB9026FBD97300B71BEE /* Constants .swift */; };
+		6D50DB9626FBE27800B71BEE /* AuthCreditials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D50DB9526FBE27800B71BEE /* AuthCreditials.swift */; };
+		6D5359CE26FBD113001D4026 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D5359CD26FBD113001D4026 /* GoogleService-Info.plist */; };
 		6DD2539926F6AEA400D9C048 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD2539826F6AEA400D9C048 /* MainTabController.swift */; };
 		6DD2539E26F6AEB000D9C048 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD2539D26F6AEB000D9C048 /* LoginController.swift */; };
 		6DD253A326F6AEBC00D9C048 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD253A226F6AEBC00D9C048 /* RegisterController.swift */; };
 		6DD253A826F6AEE200D9C048 /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD253A726F6AEE200D9C048 /* FeedController.swift */; };
 		6DD253AD26F6AF0200D9C048 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD253AC26F6AF0200D9C048 /* ProfileController.swift */; };
 		6DD253B226F6AF7900D9C048 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD253B126F6AF7900D9C048 /* SearchController.swift */; };
+		6DDA480626FCB8C900B17F8C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDA480526FCB8C900B17F8C /* LoginViewModel.swift */; };
+		6DDA480B26FCB8D300B17F8C /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDA480A26FCB8D300B17F8C /* SignUpViewModel.swift */; };
+		B5A28BB663F295DF67C6496B /* Pods_ArtSocialApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8A051F2E88800FC2CD48B7E /* Pods_ArtSocialApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,12 +67,22 @@
 		6D37FC2E26F7847500D02792 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		6D37FC3326F78BEE00D02792 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		6D3DE37326F5613C00FDD83D /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		6D50DB8526FBD83E00B71BEE /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		6D50DB8B26FBD90600B71BEE /* Uploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uploader.swift; sourceTree = "<group>"; };
+		6D50DB9026FBD97300B71BEE /* Constants .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants .swift"; sourceTree = "<group>"; };
+		6D50DB9526FBE27800B71BEE /* AuthCreditials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCreditials.swift; sourceTree = "<group>"; };
+		6D5359CD26FBD113001D4026 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6DD2539826F6AEA400D9C048 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		6DD2539D26F6AEB000D9C048 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		6DD253A226F6AEBC00D9C048 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
 		6DD253A726F6AEE200D9C048 /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
 		6DD253AC26F6AF0200D9C048 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		6DD253B126F6AF7900D9C048 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		6DDA480526FCB8C900B17F8C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		6DDA480A26FCB8D300B17F8C /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		B8A051F2E88800FC2CD48B7E /* Pods_ArtSocialApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ArtSocialApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA7CBBCD791B64B444419E4D /* Pods-ArtSocialApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtSocialApp.debug.xcconfig"; path = "Target Support Files/Pods-ArtSocialApp/Pods-ArtSocialApp.debug.xcconfig"; sourceTree = "<group>"; };
+		FA1EE2011793B41D31FE8D95 /* Pods-ArtSocialApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArtSocialApp.release.xcconfig"; path = "Target Support Files/Pods-ArtSocialApp/Pods-ArtSocialApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5A28BB663F295DF67C6496B /* Pods_ArtSocialApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +111,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		61B5AC5E617CCA9723B56484 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B8A051F2E88800FC2CD48B7E /* Pods_ArtSocialApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6D2187FA26F4D8CB008178F5 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +126,8 @@
 				6D21881C26F4D8CE008178F5 /* ArtSocialAppTests */,
 				6D21882726F4D8CE008178F5 /* ArtSocialAppUITests */,
 				6D21880426F4D8CB008178F5 /* Products */,
+				BA399DA1385A7B04BB34879C /* Pods */,
+				61B5AC5E617CCA9723B56484 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +156,7 @@
 				6D21880F26F4D8CD008178F5 /* Assets.xcassets */,
 				6D21881126F4D8CD008178F5 /* LaunchScreen.storyboard */,
 				6D21881426F4D8CD008178F5 /* Info.plist */,
+				6D5359CD26FBD113001D4026 /* GoogleService-Info.plist */,
 			);
 			path = ArtSocialApp;
 			sourceTree = "<group>";
@@ -153,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				6D3DE37326F5613C00FDD83D /* Extension.swift */,
+				6D50DB9026FBD97300B71BEE /* Constants .swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -160,6 +191,8 @@
 		6D3DE36D26F560DE00FDD83D /* Api */ = {
 			isa = PBXGroup;
 			children = (
+				6D50DB8526FBD83E00B71BEE /* AuthService.swift */,
+				6D50DB8B26FBD90600B71BEE /* Uploader.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -180,6 +213,8 @@
 		6D3DE36F26F560EC00FDD83D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				6DDA480526FCB8C900B17F8C /* LoginViewModel.swift */,
+				6DDA480A26FCB8D300B17F8C /* SignUpViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -196,8 +231,18 @@
 		6D3DE37126F560F500FDD83D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6D50DB9526FBE27800B71BEE /* AuthCreditials.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		BA399DA1385A7B04BB34879C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CA7CBBCD791B64B444419E4D /* Pods-ArtSocialApp.debug.xcconfig */,
+				FA1EE2011793B41D31FE8D95 /* Pods-ArtSocialApp.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,9 +252,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6D21882D26F4D8CE008178F5 /* Build configuration list for PBXNativeTarget "ArtSocialApp" */;
 			buildPhases = (
+				375BDDB51BEA8E11A94BA8B4 /* [CP] Check Pods Manifest.lock */,
 				6D2187FF26F4D8CB008178F5 /* Sources */,
 				6D21880026F4D8CB008178F5 /* Frameworks */,
 				6D21880126F4D8CB008178F5 /* Resources */,
+				031948EE863E99644A8037AA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -305,6 +352,7 @@
 			files = (
 				6D21881326F4D8CD008178F5 /* LaunchScreen.storyboard in Resources */,
 				6D21881026F4D8CD008178F5 /* Assets.xcassets in Resources */,
+				6D5359CE26FBD113001D4026 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,19 +372,67 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		031948EE863E99644A8037AA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ArtSocialApp/Pods-ArtSocialApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ArtSocialApp/Pods-ArtSocialApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ArtSocialApp/Pods-ArtSocialApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		375BDDB51BEA8E11A94BA8B4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ArtSocialApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6D2187FF26F4D8CB008178F5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				6D21880B26F4D8CB008178F5 /* ViewController.swift in Sources */,
+				6D50DB8C26FBD90600B71BEE /* Uploader.swift in Sources */,
 				6D37FC2F26F7847500D02792 /* CustomTextField.swift in Sources */,
 				6DD253B226F6AF7900D9C048 /* SearchController.swift in Sources */,
+				6DDA480B26FCB8D300B17F8C /* SignUpViewModel.swift in Sources */,
 				6DD2539E26F6AEB000D9C048 /* LoginController.swift in Sources */,
+				6D50DB9626FBE27800B71BEE /* AuthCreditials.swift in Sources */,
 				6D21880726F4D8CB008178F5 /* AppDelegate.swift in Sources */,
 				6DD253A326F6AEBC00D9C048 /* RegisterController.swift in Sources */,
+				6D50DB8626FBD83E00B71BEE /* AuthService.swift in Sources */,
 				6DD2539926F6AEA400D9C048 /* MainTabController.swift in Sources */,
+				6DDA480626FCB8C900B17F8C /* LoginViewModel.swift in Sources */,
 				6DD253AD26F6AF0200D9C048 /* ProfileController.swift in Sources */,
+				6D50DB9126FBD97300B71BEE /* Constants .swift in Sources */,
 				6D37FC3426F78BEE00D02792 /* CustomButton.swift in Sources */,
 				6D21880926F4D8CB008178F5 /* SceneDelegate.swift in Sources */,
 				6D3DE37426F5613C00FDD83D /* Extension.swift in Sources */,
@@ -505,6 +601,7 @@
 		};
 		6D21882E26F4D8CE008178F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA7CBBCD791B64B444419E4D /* Pods-ArtSocialApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -524,6 +621,7 @@
 		};
 		6D21882F26F4D8CE008178F5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA1EE2011793B41D31FE8D95 /* Pods-ArtSocialApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
