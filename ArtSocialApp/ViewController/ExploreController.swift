@@ -1,14 +1,14 @@
 //
-//  SearchController.swift
+//  ExploreController.swift
 //  ArtSocialApp
 //
-//  Created by Navid Sheikh on 19/09/2021.
+//  Created by Navid Sheikh on 23/09/2021.
 //
 
 import Foundation
 import UIKit
 
-class SearchController : UIViewController{
+class ExploreController : UIViewController{
     
     
     override func viewDidLoad() {

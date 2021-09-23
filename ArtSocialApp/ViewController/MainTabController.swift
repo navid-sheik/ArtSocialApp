@@ -41,25 +41,40 @@ class MainTabController : UITabBarController{
     private func setUpViews (){
         let layout =  UICollectionViewFlowLayout()
         
-        let controller  =  FeedController(collectionViewLayout: layout)
-        let navController  =    UINavigationController(rootViewController: controller)
-        navController.tabBarItem =  UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
         
-        let controller1 =  UIViewController()
-        controller1.tabBarItem =  UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
-        
-        let controller2 =  UIViewController()
-        controller2.tabBarItem =  UITabBarItem(tabBarSystemItem: .bookmarks, tag: 2)
-        
-        let controller3 =  UIViewController()
-        controller3.tabBarItem =  UITabBarItem(tabBarSystemItem: .bookmarks, tag: 3)
+        let feed  =  createNavViewController(imageNormal: UIImage(systemName: "house") ,
+                                             imageSelected: UIImage(systemName: "house.fill"),
+                                             controller: FeedController(collectionViewLayout: layout), tag: 0)
         
         
-        let controller4 =  UIViewController()
-        controller4.tabBarItem =  UITabBarItem(tabBarSystemItem: .bookmarks, tag: 4)
+        let explore  =  createNavViewController(imageNormal: UIImage(systemName: "paintpalette") ,
+                                             imageSelected: UIImage(systemName: "paintpalette.fill"),
+                                             controller: ExploreController(), tag: 1)
         
-        viewControllers =  [navController, controller1,controller2,controller3,controller4]
+        
+        let search = createNavViewController(imageNormal: UIImage(systemName: "magnifyingglass") ,
+                                             imageSelected: UIImage(systemName: "magnifyingglass"),
+                                             controller: SearchController(), tag: 2)
+        
+        
+        let layoutProfile  = UICollectionViewFlowLayout()
+        let profile  =  createNavViewController(imageNormal: UIImage(systemName: "person") ,
+                                                imageSelected: UIImage(systemName: "person.fill"),
+                                                controller: ProfileController(collectionViewLayout: layoutProfile), tag: 3)
+        
+        viewControllers =  [feed, explore, search , profile]
     }
     
-    //MARK - HELPER FUNCTION 
+    //MARK - HELPER FUNCTION
+    
+    private func createNavViewController(imageNormal  : UIImage?,
+                                         imageSelected : UIImage?,
+                                         controller : UIViewController, tag : Int ) -> UINavigationController{
+        
+        controller.tabBarItem.tag = tag
+        controller.tabBarItem.image =  imageNormal
+        controller.tabBarItem.selectedImage =  imageSelected
+        let navController  = UINavigationController(rootViewController: controller)
+        return navController
+    }
 }
