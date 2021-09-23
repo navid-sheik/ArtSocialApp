@@ -102,7 +102,16 @@ class LoginController :  UIViewController{
     //MARK - ACTIONS
     
     @objc func logIn(){
-        print("Login my account")
+        guard let email =  emailTxtField.text  else {return}
+        guard let password  = passwordTxtField.text  else {return}
+        
+        AuthService.logInUser(email: email, password: password) { (auth, error) in
+            if let error = error {
+                print("DEBUG : can't loging user \(error.localizedDescription)")
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func handleGoSignUp(){

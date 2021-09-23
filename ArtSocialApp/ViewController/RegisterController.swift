@@ -11,6 +11,7 @@ import UIKit
 class RegisterController  : UIViewController{
     var signUpViewModel =   SignUpViewModel()
     
+    
     //MARK - PROPRIETIES
     private let imageViewLogo : UIImageView =  {
         let imageView =  UIImageView()
@@ -132,13 +133,12 @@ class RegisterController  : UIViewController{
         
         let auth =  AuthCreditials(fullname: fullName, username: userName, email: emailAddress, password: password)
         
-        AuthService.registerNewUser(userCreditials: auth) { (created) in
-            if created {
-                DispatchQueue.main.async {
-                    self.navigationController?.dismiss(animated: true, completion: nil)
-                }
-      
+        AuthService.registerNewUser(userCreditials: auth) { (error) in
+            if let error = error {
+                print("DEBUG: error inserting user data \(error.localizedDescription)")
             }
+            
+            self.dismiss(animated: true, completion: nil)
         }
         
         

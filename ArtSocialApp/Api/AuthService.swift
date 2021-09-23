@@ -14,12 +14,11 @@ import FirebaseFirestore
 class AuthService {
     
     
-    static func registerNewUser (userCreditials :  AuthCreditials, completion: @escaping(Bool) ->Void){
+    static func registerNewUser (userCreditials :  AuthCreditials, completion: @escaping(Error?) ->Void){
         Auth.auth().createUser(withEmail: userCreditials.email, password: userCreditials.password) { (authResult , error) in
             
             if let error  =  error {
                 print("DEBUG : can't create a user \(error.localizedDescription)")
-                completion(false)
                 return
             }
             
@@ -31,15 +30,17 @@ class AuthService {
                     "userName" :  userCreditials.username,
                     "email": userCreditials.email
                 ]
+           
             
-            COLLECTION_USERS.document(uid).setData(userDocument)
-            completion(true)
+            COLLECTION_USERS.document(uid).setData(userDocument, completion: completion)
+         
         
         }
         
     }
    
-    static func logInUser(){
+    static func logInUser(email : String, password : String, completion: ((AuthDataResult?, Error?) -> Void)?){
+        Auth.auth().signIn(withEmail: email, password: password, completion: completion)
         
     }
 }
