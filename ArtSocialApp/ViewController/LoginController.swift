@@ -12,7 +12,7 @@ import UIKit
 class LoginController :  UIViewController{
     
     var loginViewModel  =  LoginViewModel()
-    
+    weak var delegateAuthetication : AuthenticationDelegate?
     
     //MARK - PROPRETIES
     private let imageViewLogo : UIImageView =  {
@@ -110,12 +110,14 @@ class LoginController :  UIViewController{
                 print("DEBUG : can't loging user \(error.localizedDescription)")
             }
             
-            self.dismiss(animated: true, completion: nil)
+            self.delegateAuthetication?.reFetchUserData()
+            //self.dismiss(animated: true, completion: nil)
         }
     }
     
     @objc func handleGoSignUp(){
         let controller  =  RegisterController()
+        controller.delegateAuthetication = delegateAuthetication
         navigationController?.pushViewController(controller, animated: true)
     }
     

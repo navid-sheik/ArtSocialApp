@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 
 class RegisterController  : UIViewController{
+    
+    
     var signUpViewModel =   SignUpViewModel()
+    
+    weak var delegateAuthetication : AuthenticationDelegate?
     
     
     //MARK - PROPRIETIES
@@ -138,7 +142,7 @@ class RegisterController  : UIViewController{
                 print("DEBUG: error inserting user data \(error.localizedDescription)")
             }
             
-            self.dismiss(animated: true, completion: nil)
+            self.delegateAuthetication?.reFetchUserData()
         }
         
         

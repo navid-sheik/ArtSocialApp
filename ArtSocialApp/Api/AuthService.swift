@@ -28,7 +28,8 @@ class AuthService {
                 [
                     "fullName" :  userCreditials.fullname,
                     "userName" :  userCreditials.username,
-                    "email": userCreditials.email
+                    "email": userCreditials.email,
+                    "uid" : uid 
                 ]
            
             

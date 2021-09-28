@@ -12,16 +12,30 @@ import FirebaseAuth
 class MainTabController : UITabBarController{
     
     //MARK - Properties
-    
+    var user : User?{
+        didSet{
+            setUpViews()
+        }
+    }
     
     
     //MARK - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpViews()
+       fetchCurrentUser()
         checkIfUserLogged()
     }
     
+    
+    //MARK: API
+    
+    private func fetchCurrentUser (){
+        guard let uid  =  Auth.auth().currentUser?.uid else {return}
+        UserService.fetchUser(uid: uid) { (user) in
+            self.navigationItem.title =  user.userName
+            self.user = user
+        }
+    }
     
     
     //MARK - FUNCTION
@@ -29,6 +43,7 @@ class MainTabController : UITabBarController{
         if Auth.auth().currentUser == nil{
             DispatchQueue.main.async {
                 let controller  =  LoginController()
+                controller.delegateAuthetication = self
                 let navController  =  UINavigationController(rootViewController: controller)
                 navController.modalPresentationStyle =  .fullScreen
                 self.present(navController, animated: true, completion: nil)
@@ -52,15 +67,17 @@ class MainTabController : UITabBarController{
                                              controller: ExploreController(), tag: 1)
         
         
+        let layoutSearch =  UICollectionViewFlowLayout()
         let search = createNavViewController(imageNormal: UIImage(systemName: "magnifyingglass") ,
                                              imageSelected: UIImage(systemName: "magnifyingglass"),
-                                             controller: SearchController(), tag: 2)
+                                             controller: SearchController(collectionViewLayout: layoutSearch), tag: 2)
         
         
         let layoutProfile  = UICollectionViewFlowLayout()
+        guard let user = user else {return}
         let profile  =  createNavViewController(imageNormal: UIImage(systemName: "person") ,
                                                 imageSelected: UIImage(systemName: "person.fill"),
-                                                controller: ProfileController(collectionViewLayout: layoutProfile), tag: 3)
+                                                controller: ProfileController(user: user), tag: 3)
         
         viewControllers =  [feed, explore, search , profile]
     }
@@ -77,4 +94,17 @@ class MainTabController : UITabBarController{
         let navController  = UINavigationController(rootViewController: controller)
         return navController
     }
+}
+
+extension MainTabController : AuthenticationDelegate{
+    func reFetchUserData() {
+        print("Delegate clicked")
+ 
+        self.dismiss(animated: true, completion: nil)
+        fetchCurrentUser()
+        //setUpViews()
+       
+    }
+    
+    
 }

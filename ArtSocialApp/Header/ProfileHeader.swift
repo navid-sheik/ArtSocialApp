@@ -14,6 +14,12 @@ private let  previewCellIdentifier : String  = "previewCellIdentifier"
 
 class ProfileHeader : UICollectionReusableView{
     
+    var profileHeaderModel : ProfileViewModel?{
+        didSet{
+            configureUI()
+        }
+    }
+    
     //MARK: PROPRIETIES
     private let wallpaperBackground : UIImageView = {
         let imageView =  UIImageView()
@@ -95,7 +101,7 @@ class ProfileHeader : UICollectionReusableView{
         let imageView  = UIImageView()
         imageView.image =  UIImage(systemName: "pencil.circle")
         imageView.contentMode = .scaleAspectFit
-        imageView.setDimension(width: 30, height: 30)
+        imageView.setDimension(width: 40, height: 40)
        
         return imageView
     }()
@@ -163,7 +169,7 @@ class ProfileHeader : UICollectionReusableView{
     //MARK: FUNCTION
     private func setUpViews (){
         addSubview(wallpaperBackground)
-        wallpaperBackground.anchor(top: topAnchor,leading: leadingAnchor, trailing: trailingAnchor)
+        wallpaperBackground.anchor(top: safeAreaLayoutGuide.topAnchor,leading: leadingAnchor, trailing: trailingAnchor)
         wallpaperBackground.setHeight(height: 100)
 
         addSubview(editProfileImgBtn)
@@ -219,6 +225,14 @@ class ProfileHeader : UICollectionReusableView{
         let mainString =  NSMutableAttributedString(string: "\(number)\n", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18)])
         mainString.append(NSAttributedString(string: "\(label)", attributes:  [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]))
         return mainString
+        
+    }
+    
+    private func  configureUI(){
+        
+        guard let viewModel = profileHeaderModel else {return}
+        
+        self.nameLabel.text = viewModel.fullName
         
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
 
 private let profileCellIdentifier  : String =  "profileCellIdentifier"
 private let profileHeaderIdentifier : String =  "profileHeaderIdentifier"
@@ -15,21 +16,35 @@ class ProfileController : UICollectionViewController{
     
     //MARK: - PROPRIETIES
     
+    var user : User
+    
     
     //MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
         setUpNavigationController()
         setUpCollectionView()
+        //fetchCurrentUser()
        
+    }
+   
+    init(user : User){
+        self.user =  user
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
    
     
     //MARK: - FUNCTIONS
     private func setUpNavigationController (){
-        navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationItem.title = "Profile"
-        navigationItem.title = "Name"
+        navigationItem.title = user.userName
         navigationController?.navigationBar.isTranslucent = false
         //navigationController?.navigationBar.tintColor = .black
     }
@@ -88,6 +103,9 @@ extension ProfileController : UICollectionViewDelegateFlowLayout{
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileHeaderIdentifier, for: indexPath) as! ProfileHeader
+    
+            header.profileHeaderModel = ProfileViewModel(user: user)
+        
         return header
     }
     
