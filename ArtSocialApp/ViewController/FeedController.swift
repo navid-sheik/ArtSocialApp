@@ -13,6 +13,12 @@ private let feedControllerIdentifier : String =  "feedControllerIdentifier"
 
 class FeedController  : UICollectionViewController {
     
+    var singlePostSelected : Post?{
+        didSet{
+            self.collectionView.reloadData()
+        }
+    }
+    
     var posts : [Post]? {
         didSet{
             self.collectionView.reloadData()
@@ -26,15 +32,22 @@ class FeedController  : UICollectionViewController {
         collectionView.backgroundColor =  .white
         setUpNavigationController()
         setUpCollectionView()
-        getFeed()
+        fetchFeed()
+        setReferesher()
     }
    
     
     //MARK: - FUNCTION
     
     private func setUpNavigationController  (){
-        navigationItem.title = "Home"
-        navigationItem.leftBarButtonItem  = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(hadndleLogOut))
+        if let post =  singlePostSelected{
+            navigationItem.title = "Post"
+            //navigationItem.leftBarButtonItem  = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(hadndleLogOut))
+        }else{
+            navigationItem.title = "Home"
+            navigationItem.leftBarButtonItem  = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(hadndleLogOut))
+        }
+
     }
     
     
@@ -44,12 +57,25 @@ class FeedController  : UICollectionViewController {
         
         
     }
+    
+    private func setReferesher(){
+        guard singlePostSelected == nil else {
+            return
+        }
+        let refresh  =  UIRefreshControl()
+        refresh.addTarget(self, action: #selector(handleRefreshing), for: .valueChanged)
+        collectionView.refreshControl = refresh
+    }
     //MARK: - API
 
-    private func getFeed(){
+    private func fetchFeed(){
+        guard singlePostSelected == nil else {
+            return
+        }
         show(true)
         PostService.getAllPost { (posts) in
             self.show(false)
+            self.collectionView.refreshControl?.endRefreshing()
             self.posts =  posts
         }
     }
@@ -68,6 +94,12 @@ class FeedController  : UICollectionViewController {
         }
         
     }
+    
+    @objc func handleRefreshing(){
+        
+        posts?.removeAll()
+        fetchFeed()
+    }
 }
 
 //MARK: COLLECTION DELEGATE
@@ -79,7 +111,8 @@ extension FeedController{
         if let postViewModels =  posts {
             return postViewModels.count
         }
-        return 0
+        
+        return 1
     }
     
 }
@@ -91,6 +124,10 @@ extension FeedController{
       
         if let posts =  posts {
             cell.viewModel = PostViewModel(post: posts[indexPath.row])
+        }
+        
+        if let singlePost  =  singlePostSelected{
+            cell.viewModel =  PostViewModel(post: singlePost)
         }
         
         return cell

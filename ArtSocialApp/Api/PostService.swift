@@ -39,7 +39,7 @@ class PostService {
     }
     
     static func getAllPost (completion : @escaping([Post])-> Void){
-        COLLECTION_POSTS.getDocuments { (snapshot, error) in
+        COLLECTION_POSTS.order(by: "timestamp", descending: true).getDocuments { (snapshot, error) in
             if let error = error{
                 print("There is an error getting documents \(error.localizedDescription)")
                 return
@@ -55,5 +55,22 @@ class PostService {
         }
     }
     
+    
+    static func getUserPost(userId : String, completion : @escaping([Post])-> Void ){
+        COLLECTION_POSTS.whereField("userId", isEqualTo: userId).getDocuments { (snapshot, error) in
+            if let error = error{
+                print("There is an error getting documents \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents =  snapshot?.documents else {
+                print("Snapshot is empty")
+                return
+            }
+            
+            let posts  = documents.map { (Post(postId: $0.documentID, dictonary: $0.data()))}
+            completion(posts)
+        }
+    }
     
 }

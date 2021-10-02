@@ -115,6 +115,17 @@ extension MainTabController : PostUploaderDelegate{
     func didFinishUploading(_ postController: UploadPostController) {
         selectedIndex = 0
         postController.dismiss(animated: true, completion: nil)
+        
+        guard let feedNav =  viewControllers?.first as? UINavigationController else{return}
+        guard let feed =  feedNav.viewControllers.first as? FeedController else{return}
+        feed.handleRefreshing()
+        
+        
+//        guard let profileNav =  viewControllers?.last as? UINavigationController else{return}
+//        guard let profile =  feedNav.viewControllers.last as? ProfileController else{return}
+//        //profile.handleRefreshing()
+//        profile.getUserPosts()
+        
  
     }
     

@@ -19,7 +19,7 @@ class ProfileController : UICollectionViewController{
     var user : User
     
     weak var uploadPostDelegate : PostUploaderDelegate?
-    
+    var posts =  [Post]()
         
     
     //MARK: - LIFECYCLE
@@ -32,6 +32,8 @@ class ProfileController : UICollectionViewController{
         checkUserIsFollowed()
         getUserStats()
         //fetchCurrentUser()
+        
+        getUserPosts()
        
     }
    
@@ -61,9 +63,16 @@ class ProfileController : UICollectionViewController{
     }
     
     //MARK: GET USER STATS
-    private func getUserStats (){
+     private func getUserStats (){
         UserService.getUsersCount(userUID: user.uid) { (userStats) in
             self.user.userStats =  userStats
+            self.collectionView.reloadData()
+        }
+    }
+    
+     func getUserPosts(){
+        PostService.getUserPost(userId: user.uid) { (posts) in
+            self.posts = posts
             self.collectionView.reloadData()
         }
     }
@@ -96,7 +105,7 @@ extension ProfileController{
         return 1
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return posts.count
     }
 }
 
@@ -105,10 +114,17 @@ extension ProfileController{
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: profileCellIdentifier, for: indexPath) as! ProfileCell
         //cell.backgroundColor = .blue
+        cell.postViewModel =  PostViewModel(post: posts[indexPath.row])
         return cell
     }
     
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let layout  = UICollectionViewFlowLayout()
+        let viewPostController  =  FeedController(collectionViewLayout: layout)
+        viewPostController.singlePostSelected =  posts[indexPath.row]
+        self.navigationController?.pushViewController(viewPostController, animated: true)
+    }
    
 
    

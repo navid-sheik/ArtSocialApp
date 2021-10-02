@@ -7,9 +7,15 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 class ProfileCell : UICollectionViewCell{
     //MARK: PROPETIES
+    var postViewModel : PostViewModel?{
+        didSet{
+            configureUI()
+        }
+    }
     
     
     private let imageFill  : UIImageView  =  {
@@ -33,5 +39,12 @@ class ProfileCell : UICollectionViewCell{
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    //MARK: ACTION
+    
+    private func configureUI(){
+        guard let viewModel = postViewModel else {return}
+        self.imageFill.sd_setImage(with: viewModel.imageUrl, completed: nil)
+    }
     
 }
