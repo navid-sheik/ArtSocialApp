@@ -14,6 +14,8 @@ private let  previewCellIdentifier : String  = "previewCellIdentifier"
 
 class ProfileHeader : UICollectionReusableView{
     
+    weak var profileDelegate : ProfileHeaderDelegate?
+    
     var profileHeaderModel : ProfileViewModel?{
         didSet{
             configureUI()
@@ -26,6 +28,7 @@ class ProfileHeader : UICollectionReusableView{
         imageView.backgroundColor = .red
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        imageView.image =  UIImage(named: "postPlaceholder")
         return imageView
         
     }()
@@ -75,7 +78,7 @@ class ProfileHeader : UICollectionReusableView{
     
     private lazy var followersLabel  : UILabel = {
         let label = UILabel()
-        label.attributedText =  createCustomLabel(4, "Followers")
+        //label.attributedText =  createCustomLabel(0, "Followers")
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -85,7 +88,7 @@ class ProfileHeader : UICollectionReusableView{
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.attributedText =  createCustomLabel(7, "Following")
+       //label.attributedText =  createCustomLabel(0, "Following")
         return label
     }()
     
@@ -93,16 +96,16 @@ class ProfileHeader : UICollectionReusableView{
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.attributedText =  createCustomLabel(0, "Buyers")
+        //label.attributedText =  createCustomLabel(0, "Buyers")
         return label
     }()
     
-    private var editProfileImgBtn : UIImageView = {
+    private lazy var editProfileImgBtn : UIImageView = {
         let imageView  = UIImageView()
-        imageView.image =  UIImage(systemName: "pencil.circle")
+        //imageView.image =  UIImage(systemName: "pencil.circle")
         imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
         imageView.setDimension(width: 40, height: 40)
-       
         return imageView
     }()
     
@@ -151,6 +154,20 @@ class ProfileHeader : UICollectionReusableView{
         return cv
     }()
     
+    
+    private lazy var uploadMessageButton : UIButton =  {
+        let button =  UIButton(type: .system)
+        button.layer.cornerRadius =  5
+        button.backgroundColor =  .black
+        //button.setTitle("UPLOAD", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        //button.setHeight(height: 35)
+        button.addTarget(self, action: #selector(handleUploadMessageAndPhoto), for: .touchUpInside)
+        button.isUserInteractionEnabled = true
+        return button
+        
+    }()
+    
     //MARK: INITIALIZERS
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -196,9 +213,6 @@ class ProfileHeader : UICollectionReusableView{
         addSubview(followStackView)
         followStackView.anchor(top: profileIcon.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, paddingTop: 20, paddingLeft: 0, paddingRight: 0)
         
-//        addSubview(previewColletionView)
-//        previewColletionView.anchor(top: followStackView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, paddingTop: 12)
-//        previewColletionView.setHeight(height: 100)
         
         let navigationStackView  = UIStackView(arrangedSubviews: [paintingBtn, postBtn, purchasedBtn])
         navigationStackView.setHeight(height: 50)
@@ -206,6 +220,15 @@ class ProfileHeader : UICollectionReusableView{
         navigationStackView.distribution =  .fillEqually
         addSubview(navigationStackView)
         navigationStackView.anchor(leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor,  paddingLeft: 0, paddingRight: 0)
+//        addSubview(previewColletionView)
+//        previewColletionView.anchor(top: followStackView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, paddingTop: 12)
+//        previewColletionView.setHeight(height: 100)
+        addSubview(uploadMessageButton)
+        uploadMessageButton.anchor(top: followStackView.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: navigationStackView.topAnchor, paddingTop: 15, paddingLeft: 10, paddingRight: 10 , paddingBottom: 10)
+        
+
+        
+        editProfileImgBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleEditActionBtn)))
         
     }
     
@@ -233,7 +256,25 @@ class ProfileHeader : UICollectionReusableView{
         guard let viewModel = profileHeaderModel else {return}
         
         self.nameLabel.text = viewModel.fullName
+        self.editProfileImgBtn.image =  UIImage(systemName: viewModel.typeUserImageBtn)
+        self.followersLabel.attributedText =  viewModel.userFollowers
+        self.followingLabel.attributedText =  viewModel.userFollowing
+        self.buyersLabel.attributedText =  viewModel.userBuyers
+        self.uploadMessageButton.setTitle(viewModel.butttonProfileText, for: .normal)
         
+    
+        
+    }
+    //MARK: ACTIONS
+    @objc private func handleEditActionBtn(){
+        guard let profileHeder =   profileHeaderModel else {return}
+        profileDelegate?.tapUser(user: profileHeder.user )
+      
+    }
+    
+    @objc private func handleUploadMessageAndPhoto(){
+        guard let profileHeder =   profileHeaderModel else {return}
+        profileDelegate?.uploadPhotoAndMessage(user: profileHeder.user )
     }
 }
 
@@ -270,3 +311,4 @@ extension ProfileHeader : UICollectionViewDataSource, UICollectionViewDelegate, 
    
     
 }
+

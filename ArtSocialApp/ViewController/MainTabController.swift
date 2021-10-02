@@ -75,9 +75,11 @@ class MainTabController : UITabBarController{
         
         let layoutProfile  = UICollectionViewFlowLayout()
         guard let user = user else {return}
+        let profileContoller  = ProfileController(user: user)
+        profileContoller.uploadPostDelegate = self
         let profile  =  createNavViewController(imageNormal: UIImage(systemName: "person") ,
                                                 imageSelected: UIImage(systemName: "person.fill"),
-                                                controller: ProfileController(user: user), tag: 3)
+                                                controller: profileContoller, tag: 3)
         
         viewControllers =  [feed, explore, search , profile]
     }
@@ -104,6 +106,16 @@ extension MainTabController : AuthenticationDelegate{
         fetchCurrentUser()
         //setUpViews()
        
+    }
+    
+    
+}
+
+extension MainTabController : PostUploaderDelegate{
+    func didFinishUploading(_ postController: UploadPostController) {
+        selectedIndex = 0
+        postController.dismiss(animated: true, completion: nil)
+ 
     }
     
     

@@ -7,8 +7,15 @@
 
 import Foundation
 import UIKit
+import  SDWebImage
 
 class FeedCell : UICollectionViewCell{
+    
+    var viewModel : PostViewModel?{
+        didSet{
+            configureUI()
+        }
+    }
     
     //MARK: PROPETIES
     private let profileImage :  UIImageView =  {
@@ -88,4 +95,15 @@ class FeedCell : UICollectionViewCell{
         //buttonStackView.setHeight(height: 50)
         buttonStackView.anchor(top: postImage.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor,bottom: bottomAnchor, paddingTop: 0)
     }
+    
+    private func configureUI(){
+        guard let viewModel  = viewModel else {
+            return
+        }
+        self.postImage.sd_setImage(with: viewModel.imageUrl, completed: nil)
+        self.profileUsername.text =  viewModel.username
+        
+    }
+    
+
 }

@@ -13,7 +13,12 @@ private let feedControllerIdentifier : String =  "feedControllerIdentifier"
 
 class FeedController  : UICollectionViewController {
     
-    
+    var posts : [Post]? {
+        didSet{
+            self.collectionView.reloadData()
+        
+        }
+    }
     
     //MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -21,6 +26,7 @@ class FeedController  : UICollectionViewController {
         collectionView.backgroundColor =  .white
         setUpNavigationController()
         setUpCollectionView()
+        getFeed()
     }
    
     
@@ -38,7 +44,15 @@ class FeedController  : UICollectionViewController {
         
         
     }
-    
+    //MARK: - API
+
+    private func getFeed(){
+        show(true)
+        PostService.getAllPost { (posts) in
+            self.show(false)
+            self.posts =  posts
+        }
+    }
     //MARK: - ACTION
     @objc func hadndleLogOut(){
         do{
@@ -62,7 +76,10 @@ extension FeedController{
         return 1
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if let postViewModels =  posts {
+            return postViewModels.count
+        }
+        return 0
     }
     
 }
@@ -72,6 +89,10 @@ extension FeedController{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: feedControllerIdentifier, for: indexPath) as! FeedCell
         //cell.backgroundColor = .brown
       
+        if let posts =  posts {
+            cell.viewModel = PostViewModel(post: posts[indexPath.row])
+        }
+        
         return cell
     }
     

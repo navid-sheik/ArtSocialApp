@@ -18,6 +18,9 @@ class ProfileController : UICollectionViewController{
     
     var user : User
     
+    weak var uploadPostDelegate : PostUploaderDelegate?
+    
+        
     
     //MARK: - LIFECYCLE
     override func viewDidLoad() {
@@ -26,6 +29,8 @@ class ProfileController : UICollectionViewController{
        
         setUpNavigationController()
         setUpCollectionView()
+        checkUserIsFollowed()
+        getUserStats()
         //fetchCurrentUser()
        
     }
@@ -39,6 +44,31 @@ class ProfileController : UICollectionViewController{
         fatalError("init(coder:) has not been implemented")
     }
    
+    
+    //MARK: API
+    
+    
+    
+    
+    //MARK: CHECK USER IS FOLLOWED
+    private func checkUserIsFollowed(){
+        UserService.checkUserFollow(otherUID: user.uid) { (isFollowed) in
+            if isFollowed{
+                self.user.isFollowed = true
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    //MARK: GET USER STATS
+    private func getUserStats (){
+        UserService.getUsersCount(userUID: user.uid) { (userStats) in
+            self.user.userStats =  userStats
+            self.collectionView.reloadData()
+        }
+    }
+    
+    
     
     //MARK: - FUNCTIONS
     private func setUpNavigationController (){
@@ -105,12 +135,96 @@ extension ProfileController : UICollectionViewDelegateFlowLayout{
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileHeaderIdentifier, for: indexPath) as! ProfileHeader
     
             header.profileHeaderModel = ProfileViewModel(user: user)
-        
+        header.profileDelegate = self
         return header
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 320)
+        return CGSize(width: collectionView.frame.width, height: 350)
     }
 }
 
+extension ProfileController : ProfileHeaderDelegate{
+    func uploadPhotoAndMessage(user: User) {
+        print("Upload photo message")
+        presentImagePicker()
+        
+       
+        
+    }
+    
+    func tapUser(user: User) {
+        //print("Tap user \(user)")
+        if user.isCurrentUser{
+            
+        }else if user.isFollowed{
+            
+            UserService.unfollow(otherUID: user.uid) { (error) in
+                if let error =  error{
+                    print("Can't follow user \(error.localizedDescription)")
+                }
+            
+                self.user.isFollowed = false
+                //Update the users stats 
+                UserService.getUsersCount(userUID: user.uid) { (userStats) in
+                    self.user.userStats =  userStats
+                    self.collectionView.reloadData()
+                }
+            
+            }
+
+        }else {
+            UserService.follow(otherUID: user.uid) { (error) in
+                if let error =  error{
+                    print("Can't follow user \(error.localizedDescription)")
+                }
+            
+                self.user.isFollowed = true
+                //Update the users stats
+                UserService.getUsersCount(userUID: user.uid) { (userStats) in
+                    self.user.userStats =  userStats
+                    
+                    self.collectionView.reloadData()
+                }
+            }
+    
+        }
+        
+        
+    }
+    
+    
+}
+
+
+extension ProfileController :  UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+    func presentImagePicker (){
+        let picker  = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        picker.sourceType = .photoLibrary
+        picker.modalPresentationStyle = .fullScreen
+       
+        self.present(picker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[ UIImagePickerController.InfoKey.editedImage ] as? UIImage else {
+            return
+        }
+        
+        self.dismiss(animated: true) {
+            //dismiss this controller and present this controller
+            let controller  =  UploadPostController(image: image, user: self.user)
+            controller.delegateUploader = self.uploadPostDelegate
+            let navController  =  UINavigationController(rootViewController: controller)
+            navController.modalPresentationStyle  =  .fullScreen
+            
+            self.present(navController, animated: false, completion: nil)
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        return
+    }
+}
