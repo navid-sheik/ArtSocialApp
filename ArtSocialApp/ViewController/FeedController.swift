@@ -121,6 +121,7 @@ extension FeedController{
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: feedControllerIdentifier, for: indexPath) as! FeedCell
         //cell.backgroundColor = .brown
+        cell.delegate = self
       
         if let posts =  posts {
             cell.viewModel = PostViewModel(post: posts[indexPath.row])
@@ -153,4 +154,17 @@ extension FeedController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
     }
+}
+
+
+extension FeedController : CommentTappedDelegate{
+    func pushToCommentController(_ cell: FeedCell, wantsToShowCommentsFor post: Post) {
+
+        let controller  = CommentController( post: post)
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+    
+   
+    
+    
 }

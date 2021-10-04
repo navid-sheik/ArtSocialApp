@@ -25,6 +25,17 @@ class CustomTextView : UITextView{
         return label
     }()
     
+    var placeHolderShouldCenter  = true{
+        didSet{
+            if placeHolderShouldCenter{
+                placeholder.anchor(leading : leadingAnchor, trailing: trailingAnchor, paddingLeft: 8)
+            }else{
+                placeholder.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, paddingTop: 5, paddingLeft: 6, paddingRight: 6)
+            }
+            
+        }
+    }
+    
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         configureUI()

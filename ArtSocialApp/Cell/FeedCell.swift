@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 import  SDWebImage
 
+
+
 class FeedCell : UICollectionViewCell{
+    
+    weak var delegate : CommentTappedDelegate?
     
     var viewModel : PostViewModel?{
         didSet{
@@ -51,9 +55,10 @@ class FeedCell : UICollectionViewCell{
         return button
     }()
     
-    private let commentButton : UIButton =  {
+    private lazy var commentButton : UIButton =  {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "bubble.left"), for: .normal)
+        button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleCommentBtn)))
         return button
     }()
     
@@ -103,6 +108,12 @@ class FeedCell : UICollectionViewCell{
         self.postImage.sd_setImage(with: viewModel.imageUrl, completed: nil)
         self.profileUsername.text =  viewModel.username
         
+    }
+    
+    //MARK: ACTION
+    @objc private func handleCommentBtn(){
+        guard let viewModel  = viewModel else {return}
+        delegate?.pushToCommentController(self, wantsToShowCommentsFor: viewModel.post)
     }
     
 

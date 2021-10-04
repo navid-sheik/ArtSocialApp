@@ -25,6 +25,7 @@ class UploadPostController  : UIViewController{
     private let caption : CustomTextView = {
         let captionView  = CustomTextView()
         captionView.captionPlaceHolderText = "Enter the caption here"
+        captionView.placeHolderShouldCenter = false
         return captionView
     }()
     
