@@ -45,7 +45,6 @@ class ProfileViewModel {
         return createCustomString(0, "Buyers")
     }
     
-    
     var butttonProfileText  : String {
         if user.isCurrentUser{
             return "UPLOAD"

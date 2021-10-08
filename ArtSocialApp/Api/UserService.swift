@@ -10,7 +10,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 typealias FirestoreCompletion = ((Error?) -> Void)
-    
+
 
 class UserService{
     
@@ -78,7 +78,7 @@ class UserService{
     
     
     static func getUsersCount (userUID : String , completion : @escaping(UserStats) -> Void){
-    
+        
         COLLECTION_FOLLOWINGS.document(userUID).collection("user-following").getDocuments { (snapshot, error) in
             if let error = error {
                 print ("DEBUG : error fetching users followings count \(error.localizedDescription)")

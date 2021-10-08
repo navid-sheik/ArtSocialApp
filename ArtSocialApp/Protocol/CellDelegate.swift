@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
-protocol CommentTappedDelegate : class {
+protocol CellDelegate : class {
     func pushToCommentController (_ cell : FeedCell, wantsToShowCommentsFor post : Post)
+    
+    func likePost (_ cell : FeedCell,postLikeFor post : Post)
 }

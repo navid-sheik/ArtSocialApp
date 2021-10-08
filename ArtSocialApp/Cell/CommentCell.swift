@@ -10,10 +10,10 @@ import UIKit
 
 class CommentCell : UICollectionViewCell{
     
+    
+    //MARK: PROPRIETIES
     var commentViewModel : CommentViewModel?{
-        didSet{
-            configureUI()
-        }
+        didSet{configureUI()}
     }
     
     private var profileImage : UIImageView =  {
@@ -22,11 +22,8 @@ class CommentCell : UICollectionViewCell{
         imgView.backgroundColor  =  .gray
         imgView.clipsToBounds =  true
         imgView.layer.cornerRadius =  10
-        
         return imgView
     }()
-    
-    
     
     private var commmentLabel =  UILabel()
     
@@ -39,7 +36,6 @@ class CommentCell : UICollectionViewCell{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     //MARK: FUNCTIONS
     

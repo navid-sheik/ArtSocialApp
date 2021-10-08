@@ -37,7 +37,7 @@ class LoginController :  UIViewController{
     }()
     
     private let loginButton : CustomButton = {
-       let button =  CustomButton(placeHolder: "Log In")
+        let button =  CustomButton(placeHolder: "Log In")
         button.setHeight(height: 50)
         button.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.5)
         button.setTitleColor(UIColor(white: 1, alpha: 0.2), for: .normal)
@@ -76,7 +76,7 @@ class LoginController :  UIViewController{
     
     
     
-
+    
     
     
     //MARK - FUNCTIONS
@@ -90,13 +90,13 @@ class LoginController :  UIViewController{
         stackView.anchor(top: view.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 120, paddingLeft: 32, paddingRight: 32)
         view.addSubview(signUpButton)
         signUpButton.anchor(leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingLeft: 32, paddingRight: 32, paddingBottom: 20)
-     
+        
     }
     private func addTxtFieldObservers (){
         emailTxtField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         passwordTxtField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
-        
+    
     
     
     //MARK - ACTIONS

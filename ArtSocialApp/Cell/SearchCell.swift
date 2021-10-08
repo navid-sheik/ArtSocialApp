@@ -10,6 +10,9 @@ import  UIKit
 
 class SearchCell: UICollectionViewCell {
     
+
+    
+    //MARK: PROPRIETIES
     var user : User?{
         didSet{
             guard let user = user else {return}
@@ -17,14 +20,12 @@ class SearchCell: UICollectionViewCell {
         }
     }
     
-    //MARK: PROPRIETIES
     private let userProfile : UIImageView  = {
         let imageView =  UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.image =  UIImage(named: "logoPlaceholder")
         return imageView
     }()
-    
     
     private let usernameLabel : UILabel = {
         let label  = UILabel()
@@ -35,8 +36,6 @@ class SearchCell: UICollectionViewCell {
         return label
     }()
     
-    
-        
     //MARK: INIT
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,6 +47,7 @@ class SearchCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     //MARK: FUNCTION
     private func setUpCell(){
         addSubview(usernameLabel)

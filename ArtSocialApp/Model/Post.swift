@@ -18,6 +18,7 @@ struct Post{
     var timestamp : Timestamp
     var caption : String
     var username : String
+    var didLike : Bool  = false
     
     init(postId : String,  dictonary  :  [String : Any]) {
         self.postId =  postId

@@ -14,15 +14,15 @@ private let  previewCellIdentifier : String  = "previewCellIdentifier"
 
 class ProfileHeader : UICollectionReusableView{
     
+
+    //MARK: PROPRIETIES
+    
     weak var profileDelegate : ProfileHeaderDelegate?
     
     var profileHeaderModel : ProfileViewModel?{
-        didSet{
-            configureUI()
-        }
+        didSet{configureUI()}
     }
     
-    //MARK: PROPRIETIES
     private let wallpaperBackground : UIImageView = {
         let imageView =  UIImageView()
         imageView.backgroundColor = .red
@@ -33,7 +33,6 @@ class ProfileHeader : UICollectionReusableView{
         
     }()
     
-    
     private let profileIcon : UIImageView = {
         let imageView =  UIImageView()
         imageView.image =  UIImage(named: "logoPlaceholder")
@@ -41,8 +40,6 @@ class ProfileHeader : UICollectionReusableView{
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius =  10
-//        imageView.layer.borderWidth =  2
-//        imageView.layer.borderColor = UIColor.black.cgColor
         return imageView
         
     }()

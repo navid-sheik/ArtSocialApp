@@ -13,15 +13,13 @@ import  SDWebImage
 
 class FeedCell : UICollectionViewCell{
     
-    weak var delegate : CommentTappedDelegate?
+    //MARK: PROPETIES
+    weak var delegate : CellDelegate?
     
     var viewModel : PostViewModel?{
-        didSet{
-            configureUI()
-        }
+        didSet{configureUI()}
     }
     
-    //MARK: PROPETIES
     private let profileImage :  UIImageView =  {
         let imageView  = UIImageView()
         imageView.contentMode =  .scaleAspectFill
@@ -49,9 +47,10 @@ class FeedCell : UICollectionViewCell{
         return imageView
     }()
     
-    private let likeButton : UIButton =  {
+     lazy var likeButton : UIButton =  {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(systemName: "heart"), for: .normal)
+        //button.setImage(UIImage(systemName: "heart"), for: .normal)
+        button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleLikeBtn)))
         return button
     }()
     
@@ -62,9 +61,11 @@ class FeedCell : UICollectionViewCell{
         return button
     }()
     
-    
-    
-    
+    private lazy var numberLikeLabel : UILabel =  {
+        let label = UILabel()
+        label.attributedText =  createCustomLabel(0, "Likes")
+        return label
+    }()
      
     //MARK: INIT
     override init(frame: CGRect) {
@@ -96,17 +97,24 @@ class FeedCell : UICollectionViewCell{
         buttonStackView.distribution =  .fillEqually
         buttonStackView.spacing =  10
         
+        addSubview(numberLikeLabel)
+        numberLikeLabel.anchor(top: postImage.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor, paddingTop: 0, paddingLeft: 10)
+     
         addSubview(buttonStackView)
         //buttonStackView.setHeight(height: 50)
-        buttonStackView.anchor(top: postImage.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor,bottom: bottomAnchor, paddingTop: 0)
+        buttonStackView.anchor(top: numberLikeLabel.bottomAnchor, leading: leadingAnchor, trailing: trailingAnchor,bottom: bottomAnchor,  paddingTop: 0)
+
+        
     }
     
-    private func configureUI(){
+     func configureUI(){
         guard let viewModel  = viewModel else {
             return
         }
         self.postImage.sd_setImage(with: viewModel.imageUrl, completed: nil)
         self.profileUsername.text =  viewModel.username
+        self.numberLikeLabel.attributedText =  self.createCustomLabel(viewModel.postLikes, "likes")
+        self.likeButton.setImage(viewModel.likeImage, for: .normal)
         
     }
     
@@ -116,5 +124,18 @@ class FeedCell : UICollectionViewCell{
         delegate?.pushToCommentController(self, wantsToShowCommentsFor: viewModel.post)
     }
     
+    @objc private func handleLikeBtn(){
+        guard let viewModel  = viewModel else {return}
+        delegate?.likePost(self, postLikeFor: viewModel.post)
+    }
+    
+    
+    //MARK: HELPER FUNCTION
+    private func createCustomLabel (_ number : Int, _ label : String ) -> NSMutableAttributedString{
+        let mainString =  NSMutableAttributedString(string: "\(number) ", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18)])
+        mainString.append(NSAttributedString(string: "\(label)", attributes:  [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]))
+        return mainString
+        
+    }
 
 }

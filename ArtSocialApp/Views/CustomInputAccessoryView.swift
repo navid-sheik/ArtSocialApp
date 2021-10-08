@@ -11,9 +11,6 @@ import UIKit
 
 class CustomInputAccessoryView : UIView{
     
-    
-    
-    
     //MARK: PROPRIETIES
     weak var delegateAccesory : CustomInputAccessoryViewDelegate?
     

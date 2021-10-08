@@ -44,12 +44,12 @@ class CommentController : UICollectionViewController{
         fetchComments()
     }
     
-
+    
     
     
     
     override var inputAccessoryView: UIView?{
-         get{return inputAccessory}
+        get{return inputAccessory}
         
     }
     override var canBecomeFirstResponder: Bool{

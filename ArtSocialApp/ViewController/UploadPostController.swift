@@ -102,7 +102,7 @@ class UploadPostController  : UIViewController{
             self.delegateUploader?.didFinishUploading(self)
         }
         
-       
+        
         
     }
     

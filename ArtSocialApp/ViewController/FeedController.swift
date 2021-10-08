@@ -19,10 +19,10 @@ class FeedController  : UICollectionViewController {
         }
     }
     
-    var posts : [Post]? {
+    var posts = [Post]() {
         didSet{
             self.collectionView.reloadData()
-        
+            
         }
     }
     
@@ -35,7 +35,7 @@ class FeedController  : UICollectionViewController {
         fetchFeed()
         setReferesher()
     }
-   
+    
     
     //MARK: - FUNCTION
     
@@ -47,7 +47,7 @@ class FeedController  : UICollectionViewController {
             navigationItem.title = "Home"
             navigationItem.leftBarButtonItem  = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(hadndleLogOut))
         }
-
+        
     }
     
     
@@ -67,7 +67,7 @@ class FeedController  : UICollectionViewController {
         collectionView.refreshControl = refresh
     }
     //MARK: - API
-
+    
     private func fetchFeed(){
         guard singlePostSelected == nil else {
             return
@@ -75,9 +75,25 @@ class FeedController  : UICollectionViewController {
         show(true)
         PostService.getAllPost { (posts) in
             self.show(false)
-            self.collectionView.refreshControl?.endRefreshing()
             self.posts =  posts
+            self.fetchIsLiked()
+            self.collectionView.refreshControl?.endRefreshing()
+            
+            
+            self.collectionView.reloadData()
         }
+    }
+    
+    
+    private func fetchIsLiked (){
+        
+        posts.forEach({ (post) in
+            PostService.checkIfPostLiked(post: post) { (didLike) in
+                if let index  =  self.posts.firstIndex(where: { $0.postId == post.postId}){
+                    self.posts[index].didLike = didLike
+                }
+            }
+        })
     }
     //MARK: - ACTION
     @objc func hadndleLogOut(){
@@ -97,7 +113,7 @@ class FeedController  : UICollectionViewController {
     
     @objc func handleRefreshing(){
         
-        posts?.removeAll()
+        posts.removeAll()
         fetchFeed()
     }
 }
@@ -108,11 +124,9 @@ extension FeedController{
         return 1
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let postViewModels =  posts {
-            return postViewModels.count
-        }
         
-        return 1
+        return posts.count
+        
     }
     
 }
@@ -122,10 +136,10 @@ extension FeedController{
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: feedControllerIdentifier, for: indexPath) as! FeedCell
         //cell.backgroundColor = .brown
         cell.delegate = self
-      
-        if let posts =  posts {
-            cell.viewModel = PostViewModel(post: posts[indexPath.row])
-        }
+        
+        
+        cell.viewModel = PostViewModel(post: posts[indexPath.row])
+        
         
         if let singlePost  =  singlePostSelected{
             cell.viewModel =  PostViewModel(post: singlePost)
@@ -140,7 +154,7 @@ extension FeedController : UICollectionViewDelegateFlowLayout{
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width , height: 350)
+        return CGSize(width: collectionView.frame.width , height: 380)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -157,14 +171,46 @@ extension FeedController : UICollectionViewDelegateFlowLayout{
 }
 
 
-extension FeedController : CommentTappedDelegate{
+extension FeedController : CellDelegate{
+    func likePost(_ cell: FeedCell, postLikeFor post: Post) {
+        cell.viewModel?.post.didLike.toggle()
+        
+        
+        
+        if post.didLike{
+            print("Unlike post")
+            PostService.unlikePost(post: post) { (error) in
+                
+                cell.likeButton.setImage(UIImage(systemName: "heart"), for: .normal)
+                cell.viewModel?.post.likes =  post.likes - 1
+                cell.configureUI()
+            }
+            
+        }else{
+            print("Like post")
+            PostService.likePost(post: post) { (error) in
+                
+                cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+                cell.viewModel?.post.likes =  post.likes + 1
+                
+                cell.configureUI()
+            }
+            
+            
+            
+        }
+        
+        
+        
+    }
+    
     func pushToCommentController(_ cell: FeedCell, wantsToShowCommentsFor post: Post) {
-
+        
         let controller  = CommentController( post: post)
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-   
+    
     
     
 }

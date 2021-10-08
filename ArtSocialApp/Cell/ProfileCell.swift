@@ -17,20 +17,17 @@ class ProfileCell : UICollectionViewCell{
         }
     }
     
-    
     private let imageFill  : UIImageView  =  {
         let imageView =  UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.image =  UIImage(named: "sampleImage")
         return imageView
-        
     }()
     
     //MARK: INIT
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         addSubview(imageFill)
         imageFill.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
     }

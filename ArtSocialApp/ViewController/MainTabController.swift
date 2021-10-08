@@ -22,7 +22,7 @@ class MainTabController : UITabBarController{
     //MARK - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-       fetchCurrentUser()
+        fetchCurrentUser()
         checkIfUserLogged()
     }
     
@@ -63,8 +63,8 @@ class MainTabController : UITabBarController{
         
         
         let explore  =  createNavViewController(imageNormal: UIImage(systemName: "paintpalette") ,
-                                             imageSelected: UIImage(systemName: "paintpalette.fill"),
-                                             controller: ExploreController(), tag: 1)
+                                                imageSelected: UIImage(systemName: "paintpalette.fill"),
+                                                controller: ExploreController(), tag: 1)
         
         
         let layoutSearch =  UICollectionViewFlowLayout()
@@ -101,11 +101,11 @@ class MainTabController : UITabBarController{
 extension MainTabController : AuthenticationDelegate{
     func reFetchUserData() {
         print("Delegate clicked")
- 
+        
         self.dismiss(animated: true, completion: nil)
         fetchCurrentUser()
         //setUpViews()
-       
+        
     }
     
     
@@ -120,13 +120,12 @@ extension MainTabController : PostUploaderDelegate{
         guard let feed =  feedNav.viewControllers.first as? FeedController else{return}
         feed.handleRefreshing()
         
+        //        guard let profileNav =  viewControllers?.last as? UINavigationController else{return}
+        //        guard let profile =  feedNav.viewControllers.last as? ProfileController else{return}
+        //        //profile.handleRefreshing()
+        //        profile.getUserPosts()
         
-//        guard let profileNav =  viewControllers?.last as? UINavigationController else{return}
-//        guard let profile =  feedNav.viewControllers.last as? ProfileController else{return}
-//        //profile.handleRefreshing()
-//        profile.getUserPosts()
         
- 
     }
     
     

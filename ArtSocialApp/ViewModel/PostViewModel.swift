@@ -38,6 +38,10 @@ class PostViewModel{
         return post.username
     }
     
+    var likeImage : UIImage?{
+        return post.didLike ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+    }
+    
     init(post : Post) {
         self.post = post
     }

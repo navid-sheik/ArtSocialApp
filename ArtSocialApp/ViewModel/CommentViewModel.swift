@@ -9,19 +9,16 @@ import Foundation
 import UIKit
 
 class CommentViewModel {
+    
+    //MARK: PROPRITIES
     var comment : Comment
-   
-    
-    
-    
-    
-    
-    
+
+    //MARK: LIFECYCLE
     init(comment : Comment) {
         self.comment = comment
-        
     }
     
+    //MARK: FUNCTION
     func createLabeTxt() -> NSAttributedString{
         
         let attributedTxt =  NSMutableAttributedString(string: "\(comment.username)  ", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])

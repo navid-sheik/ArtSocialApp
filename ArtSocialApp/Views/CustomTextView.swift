@@ -10,6 +10,8 @@ import UIKit
 
 class CustomTextView : UITextView{
     
+    //MARK: PROPRITIES
+    
     var captionPlaceHolderText : String? {
         didSet{
             placeholder.text =  captionPlaceHolderText
@@ -20,8 +22,6 @@ class CustomTextView : UITextView{
     var placeholder :  UILabel =  {
         let label  = UILabel()
         label.textColor =  .lightGray
-//        label.font =  UIFont.systemFont(ofSize: 16)
-//        label.numberOfLines  = 2
         return label
     }()
     
@@ -36,6 +36,8 @@ class CustomTextView : UITextView{
         }
     }
     
+    
+    //MARK: INIT
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         configureUI()

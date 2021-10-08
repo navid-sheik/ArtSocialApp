@@ -73,4 +73,56 @@ class PostService {
         }
     }
     
+    
+    static func likePost(post: Post, completion : @escaping(FirestoreCompletion)){
+        
+        guard let uid  = Auth.auth().currentUser?.uid else {return}
+        COLLECTION_POSTS.document(post.postId).updateData(["likes" : post.likes + 1])
+        COLLECTION_POSTS.document(post.postId).collection("likes-post").document(uid).setData([:]) { (error) in
+            if let error =  error {
+                print("DEBUG : There is an error adding likes in the post \(error.localizedDescription)")
+                
+            }
+            
+            COLLECTION_USERS.document(uid).collection("liked-posts").document(post.postId).setData([:], completion: completion)
+        }
+    }
+    
+    
+    
+    static func unlikePost(post: Post,  completion : @escaping(FirestoreCompletion)){
+        guard let uid  = Auth.auth().currentUser?.uid else {return}
+        
+        guard post.likes >= 0 else {return}
+        COLLECTION_POSTS.document(post.postId).updateData(["likes" : post.likes - 1])
+        COLLECTION_POSTS.document(post.postId).collection("likes-post").document(uid).delete { (error) in
+            if let error =  error {
+                print("DEBUG : There is an error adding likes in the post \(error.localizedDescription)")
+                
+            }
+            
+            COLLECTION_USERS.document(uid).collection("liked-posts").document(post.postId).delete( completion: completion)
+        }
+        
+        
+    }
+    
+    static func checkIfPostLiked(post : Post, completion : @escaping (Bool) -> Void){
+        
+        guard let uid  = Auth.auth().currentUser?.uid else {return}
+        
+        COLLECTION_USERS.document(uid).collection("liked-posts").document(post.postId).getDocument { (snapshot, error) in
+            if let error = error {
+                print("DEBUG: There is error fetching like \(error.localizedDescription)")
+            }
+            guard let isLiked  =  snapshot?.exists  else {return}
+            
+            completion(isLiked)
+        }
+        
+    }
+    
+    
+    
+    
 }

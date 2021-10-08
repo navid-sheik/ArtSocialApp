@@ -20,7 +20,7 @@ class CommmentService {
                 "comment" : comment,
                 "username" : user.userName
             ]
- 
+        
         
         COLLECTION_POSTS.document(postID).collection("comments").addDocument(data: data, completion: completion)
         
@@ -43,4 +43,6 @@ class CommmentService {
             completion(comments)
         }
     }
+    
+    
 }

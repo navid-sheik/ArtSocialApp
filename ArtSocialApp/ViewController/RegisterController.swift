@@ -51,7 +51,7 @@ class RegisterController  : UIViewController{
     private let passwordTxtField : CustomTextField = {
         let textField =  CustomTextField(placeholder: "Password")
         textField.isSecureTextEntry = true
-    
+        
         return textField
     }()
     
@@ -62,7 +62,7 @@ class RegisterController  : UIViewController{
     }()
     
     private let signUpButton : CustomButton = {
-       let button =  CustomButton(placeHolder: "Create Account")
+        let button =  CustomButton(placeHolder: "Create Account")
         button.setHeight(height: 50)
         button.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1).withAlphaComponent(0.5)
         button.setTitleColor(UIColor(white: 1, alpha: 0.2), for: .normal)
@@ -72,7 +72,7 @@ class RegisterController  : UIViewController{
     }()
     
     
-
+    
     
     private lazy var loginButton : UIButton =  {
         let button =  UIButton(type: .system)

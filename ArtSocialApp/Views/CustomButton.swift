@@ -10,7 +10,6 @@ import UIKit
 
 class CustomButton :UIButton{
     
-    
     init(placeHolder :  String) {
         super.init(frame: .zero)
         setTitle(placeHolder, for: .normal)
@@ -30,16 +29,10 @@ class CustomButton :UIButton{
 extension UIButton{
     func setCustomAttributedText(firstPart : String, secondPart : String){
         let atts : [NSAttributedString.Key : Any] = [.foregroundColor : UIColor(white: 1, alpha: 0.7), .font : UIFont.systemFont(ofSize: 16)]
-        
-        
         let atttributtedTitle  =  NSMutableAttributedString(string: firstPart, attributes: atts)
-        
-        
         let boldAtts  : [NSAttributedString.Key : Any] =  [.font :  UIFont.boldSystemFont(ofSize: 16)]
         atttributtedTitle.append(NSAttributedString(string: " \(secondPart)", attributes: boldAtts))
         
         setAttributedTitle(atttributtedTitle, for: .normal)
-        
-        
     }
 }

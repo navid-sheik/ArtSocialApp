@@ -46,7 +46,7 @@ class SearchController : UICollectionViewController{
     }
     
     //MARK: FUNCTION
-
+    
     private func setUpNavigationController(){
         navigationController?.navigationBar.prefersLargeTitles = false
         searchUserController.searchResultsUpdater = self
@@ -57,7 +57,7 @@ class SearchController : UICollectionViewController{
         navigationController?.navigationItem.searchController = searchUserController
         navigationItem.titleView =  searchUserController.searchBar
         definesPresentationContext = true
-       
+        
         
     }
     
@@ -103,7 +103,7 @@ extension SearchController: UISearchResultsUpdating{
 extension SearchController{
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
-       
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

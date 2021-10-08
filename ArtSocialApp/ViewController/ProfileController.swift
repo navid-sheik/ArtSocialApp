@@ -20,13 +20,13 @@ class ProfileController : UICollectionViewController{
     
     weak var uploadPostDelegate : PostUploaderDelegate?
     var posts =  [Post]()
-        
+    
     
     //MARK: - LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+        
         setUpNavigationController()
         setUpCollectionView()
         checkUserIsFollowed()
@@ -34,9 +34,9 @@ class ProfileController : UICollectionViewController{
         //fetchCurrentUser()
         
         getUserPosts()
-       
+        
     }
-   
+    
     init(user : User){
         self.user =  user
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -45,7 +45,7 @@ class ProfileController : UICollectionViewController{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-   
+    
     
     //MARK: API
     
@@ -63,14 +63,14 @@ class ProfileController : UICollectionViewController{
     }
     
     //MARK: GET USER STATS
-     private func getUserStats (){
+    private func getUserStats (){
         UserService.getUsersCount(userUID: user.uid) { (userStats) in
             self.user.userStats =  userStats
             self.collectionView.reloadData()
         }
     }
     
-     func getUserPosts(){
+    func getUserPosts(){
         PostService.getUserPost(userId: user.uid) { (posts) in
             self.posts = posts
             self.collectionView.reloadData()
@@ -125,9 +125,9 @@ extension ProfileController{
         viewPostController.singlePostSelected =  posts[indexPath.row]
         self.navigationController?.pushViewController(viewPostController, animated: true)
     }
-   
-
-   
+    
+    
+    
 }
 
 
@@ -149,8 +149,8 @@ extension ProfileController : UICollectionViewDelegateFlowLayout{
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: profileHeaderIdentifier, for: indexPath) as! ProfileHeader
-    
-            header.profileHeaderModel = ProfileViewModel(user: user)
+        
+        header.profileHeaderModel = ProfileViewModel(user: user)
         header.profileDelegate = self
         return header
     }
@@ -165,7 +165,7 @@ extension ProfileController : ProfileHeaderDelegate{
         print("Upload photo message")
         presentImagePicker()
         
-       
+        
         
     }
     
@@ -179,22 +179,22 @@ extension ProfileController : ProfileHeaderDelegate{
                 if let error =  error{
                     print("Can't follow user \(error.localizedDescription)")
                 }
-            
+                
                 self.user.isFollowed = false
                 //Update the users stats 
                 UserService.getUsersCount(userUID: user.uid) { (userStats) in
                     self.user.userStats =  userStats
                     self.collectionView.reloadData()
                 }
-            
+                
             }
-
+            
         }else {
             UserService.follow(otherUID: user.uid) { (error) in
                 if let error =  error{
                     print("Can't follow user \(error.localizedDescription)")
                 }
-            
+                
                 self.user.isFollowed = true
                 //Update the users stats
                 UserService.getUsersCount(userUID: user.uid) { (userStats) in
@@ -203,7 +203,7 @@ extension ProfileController : ProfileHeaderDelegate{
                     self.collectionView.reloadData()
                 }
             }
-    
+            
         }
         
         
@@ -220,7 +220,7 @@ extension ProfileController :  UIImagePickerControllerDelegate, UINavigationCont
         picker.allowsEditing = true
         picker.sourceType = .photoLibrary
         picker.modalPresentationStyle = .fullScreen
-       
+        
         self.present(picker, animated: true, completion: nil)
     }
     

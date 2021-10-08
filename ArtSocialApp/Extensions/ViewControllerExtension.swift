@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 import JGProgressHUD
 
+
+//Show and hide progress loader 
 extension UIViewController{
     static var progress =   JGProgressHUD(style: .dark)
     
