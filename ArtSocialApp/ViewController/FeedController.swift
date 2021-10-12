@@ -194,6 +194,11 @@ extension FeedController : CellDelegate{
                 cell.viewModel?.post.likes =  post.likes + 1
                 
                 cell.configureUI()
+                
+                guard let navController  =  self.tabBarController as? MainTabController else {return}
+                guard let currentUser  = navController.user else {return}
+             
+                NotificationService.uploadNotication(to: post.userId, fromUser: currentUser, type: .like, post: post)
             }
             
             

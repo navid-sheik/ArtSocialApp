@@ -16,3 +16,5 @@ let COLLECTION_FOLLOWERS =  Firestore.firestore().collection("followers")
 let COLLECTION_FOLLOWINGS =  Firestore.firestore().collection("followings")
 
 let COLLECTION_POSTS = Firestore.firestore().collection("posts")
+
+let COLLECTION_NOTIFICATION =  Firestore.firestore().collection("notifications")
