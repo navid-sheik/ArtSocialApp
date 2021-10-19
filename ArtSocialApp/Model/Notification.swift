@@ -16,15 +16,18 @@ struct Notification {
     let postUrl : String?
     let type : NotificationType
     let timestamp : Timestamp
+    let uid : String
+    var isUserFollowed  = false
 
     
     
     init(dict : [String : Any]) {
         self.id =  dict["id"] as? String ?? ""
+        self.uid  =  dict["uid"] as? String ?? ""
         self.fromUsername  = dict["fromUsername"] as? String ?? ""
         self.postId = dict["postId"] as? String
         self.postUrl =  dict["postUrl"] as? String
-        self.type =  dict["type"] as? NotificationType ?? NotificationType.like
+        self.type =  NotificationType(rawValue: dict["type"] as! Int)  ?? NotificationType.like
         self.timestamp =  dict["timestamp"] as? Timestamp ??  Timestamp(date: Date())
         
     }

@@ -31,14 +31,19 @@ enum NotificationType  : Int{
 
 class NotificationService{
     static func uploadNotication (to uid : String, fromUser user: User, type : NotificationType, post : Post?){
+        
+        guard let currentUid  = Auth.auth().currentUser?.uid else {return}
+        guard currentUid != uid else {return}
+     
         let docRef  = COLLECTION_NOTIFICATION.document(uid)
         
         var data : [String : Any] =
             [
                 "timestamp" : Timestamp(date: Date()),
-                "fromId" : user.userName,
+                "fromUsername" : user.userName,
                 "type" : type.rawValue,
-                "id": docRef.documentID
+                "id": docRef.documentID,
+                "uid" : currentUid
                 
             ]
         
@@ -46,11 +51,11 @@ class NotificationService{
             data["postId"] =  post.postId
             data["postUrl"] =  post.imageUrl
         }
-        docRef.collection("user-notfications").addDocument(data: data)
+        docRef.collection("user-notifications").addDocument(data: data)
     }
     
     
-    static func getAllNotifications(to uid : String, completion:  @escaping ([Notification]) -> Void){
+    static func getAllNotifications(uid : String, completion:  @escaping ([Notification]) -> Void){
         COLLECTION_NOTIFICATION.document(uid).collection("user-notifications").getDocuments { (snapshot, error) in
             if let error  = error{
                 print("Fetching problem  \(error.localizedDescription) ")

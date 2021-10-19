@@ -54,6 +54,7 @@ class FeedController  : UICollectionViewController {
     private func setUpCollectionView(){
         collectionView.register(FeedCell.self, forCellWithReuseIdentifier: feedControllerIdentifier)
         collectionView.delegate = self
+        collectionView.backgroundColor = .blue
         
         
     }

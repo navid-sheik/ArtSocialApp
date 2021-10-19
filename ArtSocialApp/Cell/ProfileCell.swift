@@ -28,7 +28,7 @@ class ProfileCell : UICollectionViewCell{
     //MARK: INIT
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(imageFill)
+        contentView.addSubview(imageFill)
         imageFill.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
     }
     

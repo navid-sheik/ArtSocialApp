@@ -56,6 +56,19 @@ class PostService {
     }
     
     
+    static func singlePost (postID : String , completion : @escaping(Post) -> Void){
+        COLLECTION_POSTS.document(postID).getDocument { (snapshot, error) in
+            if let error = error {
+                print("There is an error fetching post \(error.localizedDescription)")
+            }
+            guard let data  = snapshot?.data() else {return}
+            let post  = Post(postId: postID, dictonary: data)
+            
+            completion(post)
+
+        }
+    }
+    
     static func getUserPost(userId : String, completion : @escaping([Post])-> Void ){
         COLLECTION_POSTS.whereField("userId", isEqualTo: userId).getDocuments { (snapshot, error) in
             if let error = error{

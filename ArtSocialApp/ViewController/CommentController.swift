@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 import UIKit
 
 let commentIdentifierCell : String =  "commentIdentifierCell"
@@ -141,9 +142,11 @@ extension CommentController: CustomInputAccessoryViewDelegate{
             if let error = error{
                 return
             }
+            //guard let uid  = Auth.auth().currentUser?.uid else {return}
             
+            NotificationService.uploadNotication(to: self.post.userId, fromUser: user, type: .comment, post: self.post)
         }
+        
+        
     }
-    
-    
 }

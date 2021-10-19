@@ -79,9 +79,15 @@ class MainTabController : UITabBarController{
         profileContoller.uploadPostDelegate = self
         let profile  =  createNavViewController(imageNormal: UIImage(systemName: "person") ,
                                                 imageSelected: UIImage(systemName: "person.fill"),
-                                                controller: profileContoller, tag: 3)
+                                                controller: profileContoller, tag: 4)
         
-        viewControllers =  [feed, explore, search , profile]
+        
+        
+        let noticationController  = NotificationController(style: .plain)
+        let notification  =  createNavViewController(imageNormal: UIImage(systemName: "heart"), imageSelected: UIImage(systemName: "heart.fill"), controller: noticationController, tag: 3)
+        
+        
+        viewControllers =  [feed, explore, search ,notification,  profile]
     }
     
     //MARK - HELPER FUNCTION

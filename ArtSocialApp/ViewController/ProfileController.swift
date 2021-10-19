@@ -171,7 +171,13 @@ extension ProfileController : ProfileHeaderDelegate{
     
     func tapUser(user: User) {
         //print("Tap user \(user)")
+        guard let tabNav  =  self.tabBarController as? MainTabController else {
+            return
+        }
+        guard let  currentUser  = tabNav.user else {return}
+
         if user.isCurrentUser{
+            return
             
         }else if user.isFollowed{
             
@@ -191,6 +197,7 @@ extension ProfileController : ProfileHeaderDelegate{
             
         }else {
             UserService.follow(otherUID: user.uid) { (error) in
+                
                 if let error =  error{
                     print("Can't follow user \(error.localizedDescription)")
                 }
@@ -199,8 +206,9 @@ extension ProfileController : ProfileHeaderDelegate{
                 //Update the users stats
                 UserService.getUsersCount(userUID: user.uid) { (userStats) in
                     self.user.userStats =  userStats
-                    
+                    NotificationService.uploadNotication(to: user.uid, fromUser: currentUser, type: .follow, post: nil)
                     self.collectionView.reloadData()
+                    
                 }
             }
             
