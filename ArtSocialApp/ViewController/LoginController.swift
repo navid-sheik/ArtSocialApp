@@ -49,6 +49,7 @@ class LoginController :  UIViewController{
     private let forgetButton :  UIButton = {
         let button  = UIButton(type: .system)
         button.setCustomAttributedText(firstPart: "Forget Password?", secondPart: "Get Help Sign In")
+        button.addTarget(self, action: #selector(handleForgetPassword), for: .touchUpInside)
         return button
     }()
     
@@ -131,6 +132,11 @@ class LoginController :  UIViewController{
         loginButton.backgroundColor =  loginViewModel.backgroundBtnColor
         loginButton.setTitleColor(loginViewModel.textBtnColor, for: .normal)
         loginButton.isEnabled =  loginViewModel.formIsValid
+    }
+    
+    @objc func handleForgetPassword(){
+        let passwordController  = ResetPasswordController()
+        navigationController?.pushViewController(passwordController, animated: true)
     }
     
 }

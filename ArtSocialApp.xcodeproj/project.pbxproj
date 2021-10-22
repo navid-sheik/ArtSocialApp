@@ -42,6 +42,7 @@
 		6D8559C02703B88500DBF270 /* ProfileHeaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8559BF2703B88500DBF270 /* ProfileHeaderDelegate.swift */; };
 		6D8E492D271E0C6100907F09 /* NotificationCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D8E492C271E0C6100907F09 /* NotificationCellDelegate.swift */; };
 		6D969D9D2707422D00FE48B2 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D969D9C2707422D00FE48B2 /* PostService.swift */; };
+		6DB44DB3271EEC3D00DE3F87 /* ResetPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB44DB2271EEC3D00DE3F87 /* ResetPasswordController.swift */; };
 		6DCE98422717731F0056DA2F /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCE98412717731F0056DA2F /* NotificationCell.swift */; };
 		6DCE984727178EEE0056DA2F /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCE984627178EEE0056DA2F /* NotificationViewModel.swift */; };
 		6DD2539926F6AEA400D9C048 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD2539826F6AEA400D9C048 /* MainTabController.swift */; };
@@ -124,6 +125,7 @@
 		6D8559BF2703B88500DBF270 /* ProfileHeaderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderDelegate.swift; sourceTree = "<group>"; };
 		6D8E492C271E0C6100907F09 /* NotificationCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCellDelegate.swift; sourceTree = "<group>"; };
 		6D969D9C2707422D00FE48B2 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		6DB44DB2271EEC3D00DE3F87 /* ResetPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordController.swift; sourceTree = "<group>"; };
 		6DCE98412717731F0056DA2F /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		6DCE984627178EEE0056DA2F /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		6DD2539826F6AEA400D9C048 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				6D1B52BB27066A01007C2D06 /* UploadPostController.swift */,
 				6DF67A4A270A042A005FBF2F /* CommentController.swift */,
 				6D21542F2716558B00911C09 /* NotificationController.swift */,
+				6DB44DB2271EEC3D00DE3F87 /* ResetPasswordController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				6D47FC8727024CC500C551D4 /* ProfileViewModel.swift in Sources */,
 				6DF67A4B270A042A005FBF2F /* CommentController.swift in Sources */,
 				6D47FC7D270243E600C551D4 /* UserService.swift in Sources */,
+				6DB44DB3271EEC3D00DE3F87 /* ResetPasswordController.swift in Sources */,
 				6D4579E727161287002EBA15 /* NotificationService.swift in Sources */,
 				6DDA481F26FD30F100B17F8C /* ProfileCell.swift in Sources */,
 				6D50DB9626FBE27800B71BEE /* AuthCreditials.swift in Sources */,

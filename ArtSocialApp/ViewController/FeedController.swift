@@ -34,6 +34,7 @@ class FeedController  : UICollectionViewController {
         setUpCollectionView()
         fetchFeed()
         setReferesher()
+        fetchIsLikedForSinglePost()
     }
     
     
@@ -96,6 +97,14 @@ class FeedController  : UICollectionViewController {
             }
         })
     }
+    
+    private func fetchIsLikedForSinglePost(){
+        guard let singlePostSelected  = singlePostSelected else {return}
+        PostService.checkIfPostLiked(post: singlePostSelected) { (didlike) in
+            self.singlePostSelected?.didLike = didlike
+            self.collectionView.reloadData()
+        }
+    }
     //MARK: - ACTION
     @objc func hadndleLogOut(){
         do{
@@ -125,6 +134,9 @@ extension FeedController{
         return 1
     }
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let post  = singlePostSelected{
+            return 1
+        }
         
         return posts.count
         
@@ -139,11 +151,13 @@ extension FeedController{
         cell.delegate = self
         
         
-        cell.viewModel = PostViewModel(post: posts[indexPath.row])
+       
         
         
         if let singlePost  =  singlePostSelected{
             cell.viewModel =  PostViewModel(post: singlePost)
+        }else {
+            cell.viewModel = PostViewModel(post: posts[indexPath.row])
         }
         
         return cell
