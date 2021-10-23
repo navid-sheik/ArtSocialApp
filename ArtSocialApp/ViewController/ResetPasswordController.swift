@@ -11,8 +11,11 @@ import UIKit
 
 class ResetPasswordController : UIViewController{
     
-    //MARK: PROPRIETIES
-    //MARK - PROPRETIES
+    //MARK: PROPRIETIS
+    var resetViewModel  = ResetViewModel()
+    var delegate : ProtocolResetDelegate?
+    
+    
     private let imageViewLogo : UIImageView =  {
         let imageView =  UIImageView()
         imageView.image = UIImage(named: "artex")
@@ -21,10 +24,12 @@ class ResetPasswordController : UIViewController{
         return imageView
     }()
     
-    private let backButton  : UIImageView = {
+     lazy  var backButton  : UIImageView = {
         let imageView  =  UIImageView()
         imageView.image = UIImage(systemName: "chevron.left")
         imageView.contentMode =  .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleBackButton)))
         return imageView
         
     }()
@@ -70,11 +75,21 @@ class ResetPasswordController : UIViewController{
         stackView.spacing =  20
         view.addSubview(stackView)
         stackView.anchor(top: backButton.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 120, paddingLeft: 32, paddingRight: 32)
+        emailTxtField.addTarget(self, action: #selector(addTxtFieldObservers), for: .editingChanged)
         
     }
     
+    //MARK: API
     
-    //MARK - NAVIGATION CONTROLLER
+  
+    
+    //MARK: OBSERVER
+    @objc private func addTxtFieldObservers (){
+        emailTxtField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
+ 
+    }
+    
+    //MARK: NAVIGATION CONTROLLER
     
     private func setNavigationBar(){
         navigationController?.navigationBar.isHidden = true
@@ -83,9 +98,38 @@ class ResetPasswordController : UIViewController{
     
     
     
+    
+    
+    
     //MARK: HELPER FUNCTION
     
     @objc func resetPassword (){
         print("Reset password ")
+        guard let email  = emailTxtField.text else {return}
+        self.show(true)
+        AuthService.resetPassword(email: email) { (error) in
+            self.show(false)
+            if let error = error{
+                print("Error in resetting the password")
+                self.showMessage(title: "Message", message: "Fail ")
+                return
+            }
+            self.delegate?.sendResetPasswordLink(self)
+            
+        }
+    }
+    
+    @objc func handleBackButton(){
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func textDidChange(_ sender : UITextField){
+        if sender == emailTxtField{
+            resetViewModel.email =  sender.text
+        }
+        
+        resetButton.backgroundColor =  resetViewModel.backgroundBtnColor
+        resetButton.setTitleColor(resetViewModel.textBtnColor, for: .normal)
+        resetButton.isEnabled =  resetViewModel.formIsValid
     }
 }

@@ -136,7 +136,18 @@ class LoginController :  UIViewController{
     
     @objc func handleForgetPassword(){
         let passwordController  = ResetPasswordController()
+        passwordController.delegate = self
         navigationController?.pushViewController(passwordController, animated: true)
     }
+    
+}
+
+extension LoginController : ProtocolResetDelegate{
+    func sendResetPasswordLink(_ controller: ResetPasswordController) {
+        navigationController?.popViewController(animated: true)
+        showMessage(title: "Success", message: "We've send email for you")
+        
+    }
+    
     
 }

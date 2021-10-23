@@ -44,5 +44,10 @@ class AuthService {
         Auth.auth().signIn(withEmail: email, password: password, completion: completion)
         
     }
+    
+    
+    static func resetPassword  (email : String, completion  : @escaping((SendPasswordResetCallback))){
+        Auth.auth().sendPasswordReset(withEmail: email, completion: completion)
+    }
 }
 
